@@ -16,6 +16,8 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Entity
 @Table(name = "tb_usuarios")
 public class Usuario 
@@ -30,6 +32,7 @@ public class Usuario
 	@Size(max = 5000, message = "O link da foto não pode ser maior do que 5000 caracteres")
 	private String foto;
 	
+	@Schema(example = "email@email.com.br")
 	@NotNull(message = "O atributo Usuário é obrigatório!")
 	@Email(message = "O atributo usuário deve ser um email válido!")
 	private String usuario;
@@ -41,6 +44,20 @@ public class Usuario
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagem;
+	
+		
+	public Usuario(Long id, String nome, String foto, String usuario,String senha) {
+		this.id = id;
+		this.nome = nome;
+		this.foto = foto;
+		this.usuario = usuario;
+		this.senha = senha;
+	}
+	
+	
+	public Usuario() {
+	}
+
 
 	public Long getId() {
 		return id;
